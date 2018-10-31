@@ -77,7 +77,7 @@ export default class extends PureComponent {
   handleOnSubmit = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
-    console.log(evt)
+    console.log('evt', evt)
   }
 
   render() {
@@ -85,6 +85,7 @@ export default class extends PureComponent {
     return (
       <Fragment>
         <GlobalStyle />
+
         <Form onSubmit={this.handleOnSubmit}>
           <Row>
             <StyledEmoji symbol="🔥" label="flame" />

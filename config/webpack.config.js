@@ -11,7 +11,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     chunkFilename: '[name].js',
-    path: path.resolve(__dirname, 'build/client'),
+    path: path.resolve(__dirname, '../build/client'),
   },
   module: {
     rules: [
