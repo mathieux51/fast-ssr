@@ -26,6 +26,7 @@
     "babel-loader": "^8.0.4",
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-styled-components": "^1.8.0",
+    "cache-loader": "^1.2.5",
     "eslint": "^5.7.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -53,6 +54,7 @@
     "polished": "^2.3.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "redis": "^2.8.0",
     "styled-components": "^4.0.2"
   }
 }
