@@ -2,7 +2,8 @@ const path = require('path')
 
 const webpack = require('webpack')
 
-const cacheLoader = require('./lib/cacheLoader')
+const isProd = typeof process.env.NODE_ENV === 'undefined' || process.env.NODE_ENV === 'production'
+const isDev = !isProd
 
 module.exports = {
   name: 'client',
@@ -10,10 +11,12 @@ module.exports = {
   target: 'web',
   devtool: 'source-map',
   entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
-    'react-hot-loader/patch',
+    isDev
+      ? 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false'
+      : null,
+    isDev ? 'react-hot-loader/patch' : null,
     './src/client',
-  ],
+  ].filter(Boolean),
   output: {
     filename: '[name].js',
     chunkFilename: '[name].js',
@@ -23,9 +26,12 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [cacheLoader, 'babel-loader?cacheDirectory'],
+        // eslint-disable-next-line
+        use: [isDev ? require('./lib/cacheLoader') : null, 'babel-loader?cacheDirectory'].filter(
+          Boolean,
+        ),
       },
     ],
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [isDev ? new webpack.HotModuleReplacementPlugin() : null].filter(Boolean),
 }
