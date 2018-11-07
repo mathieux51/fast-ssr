@@ -11,5 +11,5 @@ export default createGlobalStyle`
    color: #000;
    font-family: Arial !important;
   }
-
+  
 `

@@ -2,12 +2,13 @@ const path = require('path')
 
 const webpack = require('webpack')
 
-const isProd = typeof process.env.NODE_ENV === 'undefined' || process.env.NODE_ENV === 'production'
+const { NODE_ENV } = process.env
+const isProd = typeof NODE_ENV === 'undefined' || NODE_ENV === 'production'
 const isDev = !isProd
 
 module.exports = {
   name: 'client',
-  mode: 'development',
+  mode: isProd ? NODE_ENV : 'development',
   target: 'web',
   devtool: 'source-map',
   entry: [
@@ -18,9 +19,9 @@ module.exports = {
     './src/client',
   ].filter(Boolean),
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].js',
-    path: path.resolve(__dirname, '../build/client'),
+    filename: isDev ? '[name].js' : '[name].[hash].js',
+    chunkFilename: isDev ? '[name].js' : '[name].[chunkhash].js',
+    path: path.resolve(__dirname, '../build/public'),
   },
   module: {
     rules: [

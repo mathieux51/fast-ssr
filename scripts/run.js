@@ -1,3 +1,4 @@
+const fs = require('fs')
 const fastify = require('fastify')
 
 const server = fastify({
@@ -6,6 +7,7 @@ const server = fastify({
   },
 })
 
+server.decorate('filename', JSON.parse(fs.readFileSync('stats.json')).filename)
 server.register(require('./server').default)
 
 const start = async () => {

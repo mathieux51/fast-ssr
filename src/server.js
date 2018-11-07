@@ -1,6 +1,10 @@
 // class JunkError extends Error {}
 
 const server = (fastify, opts, next) => {
+  fastify.get('/api', async (request, reply) => {
+    request.json({ message: 'test' })
+  })
+
   fastify.get('/', async (request, reply) => {
     // Do "hot-reloading" on the server thanks to chokidar
     const { default: render } = await import('./render')
@@ -19,7 +23,7 @@ const server = (fastify, opts, next) => {
       <body>
         <div id="root">${html}</div>
         <script>window.__ssr = true</script>
-        <script src="/main.js"></script>
+        <script src="/${fastify.filename || 'main.js'}"></script>
       </body>
       </html>
     `)
