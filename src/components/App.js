@@ -1,6 +1,7 @@
 import React, { Fragment, PureComponent } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './GlobalStyle'
+import Lazy from './Lazy'
 
 const Form = styled.form`
   display: flex;
@@ -39,14 +40,6 @@ const Input = styled('input')`
   &:valid {
     border-bottom: 8px solid green;
   }
-`
-const Button = styled.button`
-  font-size: 2em;
-  margin: 20px 0;
-  flex: 70px;
-  width: 70%;
-  background-color: white;
-  border-radius: 5px;
 `
 
 export default class extends PureComponent {
@@ -99,7 +92,8 @@ export default class extends PureComponent {
               pattern="^.{4,}$"
             />
           </Row>
-          <Button type="submit">Test</Button>
+          {/* <Button type="submit">Test</Button> */}
+          <Lazy resolve={() => import('./Button')} />
         </Form>
       </Fragment>
     )

@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const fastify = require('fastify')
 
 const server = fastify({
@@ -8,6 +9,9 @@ const server = fastify({
 })
 
 server.decorate('filename', JSON.parse(fs.readFileSync('stats.json')).filename)
+server.register(require('fastify-static'), {
+  root: path.join(__dirname, 'public'),
+})
 server.register(require('./server').default)
 
 const start = async () => {

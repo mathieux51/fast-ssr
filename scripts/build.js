@@ -6,6 +6,7 @@ import webpackConfig from '../config/webpack.config'
 
 const copyFile = promisify(fs.copyFile)
 const writeFile = promisify(fs.writeFile)
+// const copyDir = promisify(fs.copyDir)
 
 const build = () => new Promise((res, rej) => {
   webpack(webpackConfig).run((err, stats) => {
@@ -16,12 +17,14 @@ const build = () => new Promise((res, rej) => {
 
 async function main() {
   try {
+    // await copyDir('public', 'build/public')
+    await copyFile('scripts/run.js', 'build/run.js')
+
     const stats = await build()
     await writeFile(
       'build/stats.json',
       JSON.stringify({ filename: stats.compilation.chunks[0].files[0] }),
     )
-    await copyFile('scripts/run.js', 'build/run.js')
   } catch (err) {
     console.error(err)
   }
