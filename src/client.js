@@ -4,7 +4,7 @@ import { hydrate } from 'react-dom'
 
 import App from './components/App'
 
-console.log('Hello universe')
+console.log('Hello world')
 
 const render = props => (
   <AppContainer>

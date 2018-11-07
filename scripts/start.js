@@ -1,4 +1,3 @@
-// class JunkError extends Error {}
 // import React from 'react'
 // import path from 'path'
 import webpack from 'webpack' // eslint-disable-line

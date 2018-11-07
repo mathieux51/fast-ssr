@@ -85,7 +85,6 @@ export default class extends PureComponent {
     return (
       <Fragment>
         <GlobalStyle />
-
         <Form onSubmit={this.handleOnSubmit}>
           <Row>
             <StyledEmoji symbol="🔥" label="flame" />
@@ -100,7 +99,7 @@ export default class extends PureComponent {
               pattern="^.{4,}$"
             />
           </Row>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Test</Button>
         </Form>
       </Fragment>
     )
