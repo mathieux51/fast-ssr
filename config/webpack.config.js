@@ -27,6 +27,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        exclude: /(node_modules)/,
         // eslint-disable-next-line
         use: [isDev ? require('./lib/cacheLoader') : null, 'babel-loader?cacheDirectory'].filter(
           Boolean,

@@ -1,7 +1,9 @@
 import React, { Fragment, PureComponent } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './GlobalStyle'
-import Lazy from './Lazy'
+import lazy from './lazy'
+
+const Button = lazy(() => import(/* webpackChunkName: 'Button' */ './Button'))
 
 const Form = styled.form`
   display: flex;
@@ -92,8 +94,7 @@ export default class extends PureComponent {
               pattern="^.{4,}$"
             />
           </Row>
-          {/* <Button type="submit">Test</Button> */}
-          <Lazy resolve={() => import('./Button')} />
+          <Button type="submit">Test</Button>
         </Form>
       </Fragment>
     )

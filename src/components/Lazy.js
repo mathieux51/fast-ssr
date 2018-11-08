@@ -1,22 +1,21 @@
-import * as React from 'react'
+import React, { PureComponent } from 'react'
 
-class Lazy extends React.Component {
-  state = {
-    module: null,
-  }
+export default importComponent => class extends PureComponent {
+    state = {
+      C: null,
+    }
 
-  async componentDidMount() {
-    const { resolve } = this.props
-    const { default: module } = await resolve()
-    this.setState({ module })
-  }
+    async componentDidMount() {
+      const { default: C } = await importComponent()
 
-  render() {
-    const { module } = this.state
+      this.setState({
+        C,
+      })
+    }
 
-    if (!module) return <div>Loading module...</div>
-    return React.createElement(module)
-  }
+    render() {
+      const { C } = this.state
+
+      return C ? <C {...this.props} /> : null
+    }
 }
-
-export default Lazy
