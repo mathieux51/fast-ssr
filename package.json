@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "NODE_ENV='development' nodemon --watch src/server/ --exec babel-node scripts/start | pino-pretty",
+    "start": "NODE_ENV='development' nodemon --watch src/server/ --exec babel-node --inspect scripts/start | pino-pretty",
     "clean": "rimraf build",
     "prebuild": "NODE_ENV='production' npm-run-all clean build:server",
     "build": "NODE_ENV='production' babel-node --inspect scripts/build",

@@ -1,13 +1,36 @@
+import createCacheStream from './createCacheStream'
+import redis from './redis'
 import html from './html'
 
+// const { NODE_ENV } = process.env
+// const isProd = typeof NODE_ENV === 'undefined' || NODE_ENV === 'production'
+// const isDev = !isProd
+
 const server = (fastify, opts, next) => {
-  fastify.get('/', async (request, reply) => {
-    // Do "hot-reloading" on the server
-    const { default: render } = await import('./render')
-    reply.type('text/html; charset=utf-8')
-    reply.send(html(fastify.filename, render()))
+  fastify.get('*', async (request, reply) => {
+    const cachedHtml = await redis.get(request.path)
+    if (cachedHtml) {
+      reply.type('text/html').send(cachedHtml)
+    } else {
+      const stream = createCacheStream(request.req.url)
+      stream.write(html)
+
+      // Do "hot-reloading" on the server
+      const { default: render } = await import('./render')
+      const renderStream = render()
+      renderStream.pipe(
+        stream,
+        { end: false },
+      )
+      renderStream.on('end', () => {
+        stream.end('</div></body></html>')
+      })
+
+      reply.type('text/html').send(stream)
+    }
+
+    next()
   })
-  next()
 }
 
 export default server
