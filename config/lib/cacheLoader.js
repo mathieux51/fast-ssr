@@ -1,17 +1,15 @@
-const redis = require('redis')
+const Redis = require('ioredis')
 const crypto = require('crypto')
 
-// const isProd = typeof process.env.NODE_ENV === 'undefined' || process.env.NODE_ENV === 'production'
+// const isProd = typeof process.env.NODE_ENV === 'undefined' ||
+// process.env.NODE_ENV === 'production'
 // const isDev = !isProd
 const BUILD_CACHE_TIMEOUT = 24 * 3600
 
-const client = redis.createClient({
+const redis = new Redis({
   host: 'localhost',
   port: 6379,
 })
-// let client
-// if (isDev) {
-// }
 
 function digest(str) {
   return crypto
@@ -27,7 +25,7 @@ function cacheKey(options, request) {
 
 // Read data from database and parse them
 function read(key, callback) {
-  client.get(key, (err, result) => {
+  redis.get(key, (err, result) => {
     if (err) {
       return callback(err)
     }
@@ -47,7 +45,7 @@ function read(key, callback) {
 
 // Write data to database under cacheKey
 function write(key, data, callback) {
-  client.set(key, JSON.stringify(data), 'EX', BUILD_CACHE_TIMEOUT, callback)
+  redis.set(key, JSON.stringify(data), 'EX', BUILD_CACHE_TIMEOUT, callback)
 }
 
 const cacheLoader = {

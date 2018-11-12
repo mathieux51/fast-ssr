@@ -49,6 +49,7 @@
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "fastify": "^1.12.1",
     "fastify-static": "^0.14.0",
+    "ioredis": "^4.2.0",
     "pino-pretty": "^2.2.2",
     "polished": "^2.3.0",
     "react": "^16.5.2",
