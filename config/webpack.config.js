@@ -7,12 +7,12 @@ const babelrc = require('../.babelrc.js')
 babelrc.plugins.pop()
 
 const { NODE_ENV } = process.env
-const isProd = typeof NODE_ENV === 'undefined' || NODE_ENV === 'production'
+const isProd = NODE_ENV === 'production'
 const isDev = !isProd
 
 module.exports = {
   name: 'client',
-  mode: isProd ? NODE_ENV : 'development',
+  mode: isProd ? 'production' : 'development',
   target: 'web',
   devtool: 'source-map',
   entry: [
