@@ -19,7 +19,7 @@ compiler.hooks.done.tap('client', cacheClean)
 
 server.use(
   webpackDevMiddleware(compiler, {
-    logLevel: 'silent',
+    // logLevel: 'silent',
     noInfo: true,
   }),
 )

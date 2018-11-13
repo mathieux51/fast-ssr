@@ -2,6 +2,10 @@ const path = require('path')
 
 const webpack = require('webpack')
 
+const babelrc = require('../.babelrc.js')
+
+babelrc.plugins.pop()
+
 const { NODE_ENV } = process.env
 const isProd = typeof NODE_ENV === 'undefined' || NODE_ENV === 'production'
 const isDev = !isProd
@@ -28,10 +32,16 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        // eslint-disable-next-line
-        use: [isDev ? require('./lib/cacheLoader') : null, 'babel-loader?cacheDirectory'].filter(
-          Boolean,
-        ),
+        use: [
+          isDev ? require('./lib/cacheLoader') : null, // eslint-disable-line
+          {
+            loader: 'babel-loader?cacheDirectory',
+            options: {
+              babelrc: false,
+              ...babelrc,
+            },
+          },
+        ].filter(Boolean),
       },
     ],
   },

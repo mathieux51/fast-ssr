@@ -8,7 +8,7 @@ const server = fastify({
   },
 })
 
-server.decorate('filename', JSON.parse(fs.readFileSync('stats.json')).filename)
+// server.decorate('filename', JSON.parse(fs.readFileSync('stats.json')).filename)
 server.register(require('fastify-static'), {
   root: path.join(__dirname, 'public'),
 })

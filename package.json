@@ -6,10 +6,10 @@
   "scripts": {
     "start": "NODE_ENV='development' nodemon --watch src/server/ --exec babel-node --inspect scripts/start | pino-pretty",
     "clean": "rimraf build",
-    "prebuild": "NODE_ENV='production' npm-run-all clean build:server",
+    "prebuild": "npm-run-all clean build:server",
     "build": "NODE_ENV='production' babel-node --inspect scripts/build",
-    "build:server": "babel src -d build --ignore 'src/client.js'",
-    "build:client": "webpack --config config/webpack.config",
+    "build:server": "NODE_ENV='production' babel src -d build --ignore 'src/client.js'",
+    "build:client": "NODE_ENV='production' webpack --config config/webpack.config",
     "lint:css": "stylelint './src/**/*.js'"
   },
   "keywords": [],
@@ -24,7 +24,6 @@
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
-    "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-styled-components": "^1.8.0",
     "cache-loader": "^1.2.5",
     "eslint": "^5.7.0",
@@ -47,6 +46,7 @@
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-decorators": "^7.1.2",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
     "fastify": "^1.12.1",
     "fastify-static": "^0.14.0",
     "ioredis": "^4.2.0",
@@ -54,6 +54,7 @@
     "polished": "^2.3.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-loadable": "^5.5.0",
     "redis": "^2.8.0",
     "styled-components": "^4.0.2",
     "webpack": "^4.22.0"

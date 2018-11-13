@@ -10,7 +10,7 @@ const createCacheStream = (key) => {
     },
 
     flush(cb) {
-      redis.set(key, Buffer.concat(bufferedChunks), 'ex', 10)
+      redis.set(key, Buffer.concat(bufferedChunks), 'ex', 1)
       cb()
     },
   })
