@@ -35,8 +35,9 @@ module.exports = {
         use: [
           isDev ? require('./lib/cacheLoader') : null, // eslint-disable-line
           {
-            loader: 'babel-loader?cacheDirectory',
+            loader: 'babel-loader',
             options: {
+              cacheDirectory: true,
               babelrc: false,
               ...babelrc,
             },
