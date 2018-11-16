@@ -16,6 +16,6 @@ export default importComponent => class extends PureComponent {
     render() {
       const { C } = this.state
 
-      return C ? <C {...this.props} /> : null
+      return <C {...this.props} />
     }
 }
