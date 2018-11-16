@@ -2,9 +2,9 @@ import React, { Fragment, PureComponent } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './GlobalStyle'
 import Button from './Button'
-// import lazy from './lazy'
+// import dynamic from './dynamic'
 
-// const Button = lazy(() => import(/* webpackChunkName: "Button" */ './Button'))
+// const Button = dynamic(() => import(/* webpackChunkName: "Button" */ './Button'))
 
 const Form = styled.form`
   display: flex;
