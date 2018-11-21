@@ -4,7 +4,6 @@ import webpack from 'webpack' // eslint-disable-line
 import webpackDevMiddleware from 'webpack-dev-middleware' // eslint-disable-line
 import webpackHotMiddleware from 'webpack-hot-middleware' // eslint-disable-line
 import fastify from 'fastify'
-import Loadable from 'react-loadable'
 
 import cacheClean from './lib/cacheClean'
 import webpackConfig from '../config/webpack.config'
@@ -33,11 +32,11 @@ server.register(async (...rest) => {
 
 const start = async () => {
   try {
-    await Loadable.preloadAll()
     await server.listen(4000)
   } catch (err) {
-    server.log.error(err)
+    console.error(err)
     process.exit(1)
   }
 }
+
 start()

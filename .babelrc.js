@@ -14,9 +14,9 @@ module.exports = {
     ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-syntax-dynamic-import',
-    'babel-plugin-styled-components',
-    'react-loadable/babel',
     'dynamic-import-node',
+    'babel-plugin-styled-components',
+    '@loadable/babel-plugin',
   ],
   ignore: ['node_modules', 'build'],
 }
