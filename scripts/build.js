@@ -17,14 +17,13 @@ const build = () => new Promise((res, rej) => {
 
 async function main() {
   try {
-    // await copyDir('public', 'build/public')
-    await copyFile('scripts/run.js', 'build/run.js')
+    await copyFile('scripts/run.js', 'dist/run.js')
 
     const stats = await build()
-    await writeFile(
-      'build/stats.json',
-      JSON.stringify({ filename: stats.compilation.chunks[0].files[0] }),
-    )
+    // await writeFile(
+    //   'dist/stats.json',
+    //   JSON.stringify({ filename: stats.compilation.chunks[0].files[0] }),
+    // )
   } catch (err) {
     console.error(err)
   }

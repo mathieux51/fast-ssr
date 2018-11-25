@@ -19,8 +19,10 @@ compiler.hooks.done.tap('client', cacheClean)
 
 server.use(
   webpackDevMiddleware(compiler, {
-    logLevel: 'silent',
-    noInfo: true,
+    publicPath: webpackConfig.output.publicPath,
+    writeToDisk: filePath => /loadable-stats/.test(filePath),
+    // logLevel: 'silent',
+    // noInfo: true,
   }),
 )
 server.use(webpackHotMiddleware(compiler))

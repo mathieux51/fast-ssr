@@ -7,7 +7,6 @@ const babelrc = require('../.babelrc.js')
 
 // Remove dynamic-import-node
 babelrc.plugins.splice(babelrc.plugins.findIndex(x => x === 'dynamic-import-node'), 1)
-console.log(babelrc)
 
 const { NODE_ENV } = process.env
 const isProd = NODE_ENV === 'production'
@@ -28,7 +27,8 @@ module.exports = {
   output: {
     filename: isDev ? '[name].js' : '[name].[hash].js',
     chunkFilename: isDev ? '[name].js' : '[name].[chunkhash].js',
-    path: path.resolve(__dirname, '../build/public'),
+    path: path.resolve(__dirname, '../dist/public'),
+    publicPath: '/public/',
   },
   module: {
     rules: [

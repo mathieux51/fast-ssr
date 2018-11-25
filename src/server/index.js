@@ -1,3 +1,4 @@
+// import path from 'path'
 import createCacheStream from './createCacheStream'
 // import redis from './redis'
 import html from './html'
@@ -7,6 +8,11 @@ import html from './html'
 // const isDev = !isProd
 
 const server = (fastify, opts, next) => {
+  // fastify.register(require('fastify-static'), {
+  //   root: path.join(__dirname, '/..', '/..', '/public'),
+  //   prefix: '/public/',
+  // })
+
   fastify.get('*', async (request, reply) => {
     // const cachedHtml = await redis.get(request.path)
     // if (cachedHtml) {
@@ -17,13 +23,13 @@ const server = (fastify, opts, next) => {
 
     // Do "hot-reloading" on the server
     const { default: render } = await import('./render')
-    const renderStream = render()
+    const { renderStream, chunkExtractor } = render()
     renderStream.pipe(
       stream,
       { end: false },
     )
     renderStream.on('end', () => {
-      stream.end('</div></body></html>')
+      stream.end(`</div>${chunkExtractor.getScriptTags()}</body></html>`)
     })
 
     reply.type('text/html').send(stream)

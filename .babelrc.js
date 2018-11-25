@@ -18,5 +18,5 @@ module.exports = {
     'babel-plugin-styled-components',
     '@loadable/babel-plugin',
   ],
-  ignore: ['node_modules', 'build'],
+  ignore: ['node_modules', 'dist'],
 }

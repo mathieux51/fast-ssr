@@ -1,13 +1,12 @@
 import React, { Fragment, PureComponent } from 'react'
 import styled from 'styled-components'
+import loadable from '@loadable/component'
 import GlobalStyle from './GlobalStyle'
-import Button from './Button'
+// import Button from './Button'
 
-// const Button = Loadable({
-//   loader: () => import(/* webpackChunkName: "myNamedChunk" */ './Button'),
-//   loading: () => <div>loading...</div>,
-//   modules: ['Button'],
-// })
+const Button = loadable(() => import('./Button'), {
+  fallback: <div>Loading...</div>,
+})
 
 const Form = styled.form`
   display: flex;
