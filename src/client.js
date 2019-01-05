@@ -1,12 +1,15 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader' // eslint-disable-line
 import { hydrate } from 'react-dom'
 
 import App from './components/App'
 
-const render = props => (
+const render = () => (
   <AppContainer>
-    <App {...props} />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </AppContainer>
 )
 

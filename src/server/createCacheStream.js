@@ -1,5 +1,5 @@
 import { Transform } from 'stream'
-import redis from './redis'
+// import redis from './redis'
 
 const createCacheStream = (key) => {
   const bufferedChunks = []
@@ -10,7 +10,7 @@ const createCacheStream = (key) => {
     },
 
     flush(cb) {
-      redis.set(key, Buffer.concat(bufferedChunks), 'ex', 1)
+      // redis.set(key, Buffer.concat(bufferedChunks), 'ex', 1)
       cb()
     },
   })

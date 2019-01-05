@@ -19,11 +19,8 @@ async function main() {
   try {
     await copyFile('scripts/run.js', 'dist/run.js')
 
-    const stats = await build()
-    // await writeFile(
-    //   'dist/stats.json',
-    //   JSON.stringify({ filename: stats.compilation.chunks[0].files[0] }),
-    // )
+    await build()
+    // const stats = await build()
   } catch (err) {
     console.error(err)
   }

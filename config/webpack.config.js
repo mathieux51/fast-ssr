@@ -3,11 +3,6 @@ const path = require('path')
 const webpack = require('webpack')
 const LoadablePlugin = require('@loadable/webpack-plugin')
 
-const babelrc = require('../.babelrc.js')
-
-// Remove dynamic-import-node
-babelrc.plugins.splice(babelrc.plugins.findIndex(x => x === 'dynamic-import-node'), 1)
-
 const { NODE_ENV } = process.env
 const isProd = NODE_ENV === 'production'
 const isDev = !isProd
@@ -41,15 +36,18 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               cacheDirectory: true,
-              babelrc: false,
-              ...babelrc,
             },
           },
         ].filter(Boolean),
       },
     ],
   },
-  plugins: [isDev ? new webpack.HotModuleReplacementPlugin() : null, new LoadablePlugin()].filter(
-    Boolean,
-  ),
+  plugins: [
+    isDev ? new webpack.HotModuleReplacementPlugin() : null,
+    new LoadablePlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.IS_WEBPACK': JSON.stringify('true'),
+    }),
+  ].filter(Boolean),
 }

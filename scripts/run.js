@@ -1,24 +1,22 @@
-const fs = require('fs')
 const path = require('path')
-const fastify = require('fastify')
-
-const server = fastify({
+const fastify = require('fastify')({
   logger: {
     level: 'info',
   },
 })
 
-// server.decorate('filename', JSON.parse(fs.readFileSync('stats.json')).filename)
-server.register(require('fastify-static'), {
-  root: path.join(__dirname, 'public'),
+fastify.register(require('fastify-static'), {
+  root: path.join(__dirname, '/public'),
 })
-server.register(require('./server').default)
+// eslint-disable-next-line import/no-unresolved
+// fastify.register(require('./server').default)
 
 const start = async () => {
   try {
-    await server.listen(4000)
+    await fastify.listen(4000)
+    fastify.log.info(`server listening on ${fastify.server.address().port}`)
   } catch (err) {
-    console.error(err)
+    fastify.log.error(err)
     process.exit(1)
   }
 }

@@ -19,6 +19,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'no-console': 0,
+    'global-require': 0,
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
   },
 }

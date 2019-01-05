@@ -20,25 +20,25 @@ compiler.hooks.done.tap('client', cacheClean)
 server.use(
   webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    writeToDisk: filePath => /loadable-stats/.test(filePath),
+    // writeToDisk: filePath => /loadable-stats/.test(filePath),
     // logLevel: 'silent',
     // noInfo: true,
+    serverSideRender: true,
   }),
 )
 server.use(webpackHotMiddleware(compiler))
 
-server.register(async (...rest) => {
-  const { default: s } = await import('../src/server')
-  return s(...rest)
+server.register(async (...args) => {
+  const { default: s } = require('../src/server') // eslint-disable-line global-require
+  return s(...args)
 })
 
 const start = async () => {
   try {
     await server.listen(4000)
   } catch (err) {
-    console.error(err)
+    server.log.error(err)
     process.exit(1)
   }
 }
-
 start()
