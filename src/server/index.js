@@ -1,9 +1,8 @@
-// import React from 'react'
-// import path from 'path'
 import fastify from 'fastify'
 
 const server = fastify({
   logger: {
+    name: 'ssr',
     level: 'info',
   },
 })

@@ -11,20 +11,10 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   target: 'web',
   devtool: 'source-map',
-  devServer: isDev && {
-    port: 3000,
-    writeToDisk: true,
-    proxy: [
-      {
-        context: ['**'],
-        target: 'http://localhost:4000',
-      },
-    ],
-  },
   entry: [
-    // isDev
-    //   ? 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false'
-    //   : null,
+    isDev
+      ? 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false'
+      : null,
     isDev ? 'react-hot-loader/patch' : null,
     './src/client',
   ].filter(Boolean),
@@ -40,7 +30,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules)/,
         use: [
-          isDev ? require('./lib/cacheLoader') : null, // eslint-disable-line
+          // isDev ? require('./lib/cacheLoader') : null,
           {
             loader: 'babel-loader',
             options: {

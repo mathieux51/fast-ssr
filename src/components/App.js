@@ -43,7 +43,7 @@ export default () => (
     <GlobalStyle />
     <ul>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/">Home </Link>
       </li>
       <li>
         <Link to="/old-match">Old Match, to be redirected</Link>
