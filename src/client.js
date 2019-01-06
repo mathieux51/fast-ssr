@@ -4,9 +4,9 @@ import { hydrate } from 'react-dom'
 
 import App from './components/App'
 
-const render = props => (
+const render = () => (
   <AppContainer>
-    <App {...props} />
+    <App />
   </AppContainer>
 )
 

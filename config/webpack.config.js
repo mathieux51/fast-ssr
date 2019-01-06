@@ -1,7 +1,6 @@
 const path = require('path')
 
 const webpack = require('webpack')
-const LoadablePlugin = require('@loadable/webpack-plugin')
 
 const babelrc = require('../.babelrc.js')
 
@@ -49,7 +48,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [isDev ? new webpack.HotModuleReplacementPlugin() : null, new LoadablePlugin()].filter(
-    Boolean,
-  ),
+  plugins: [isDev ? new webpack.HotModuleReplacementPlugin() : null].filter(Boolean),
 }

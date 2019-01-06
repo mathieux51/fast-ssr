@@ -23,13 +23,13 @@ const server = (fastify, opts, next) => {
 
     // Do "hot-reloading" on the server
     const { default: render } = await import('./render')
-    const { renderStream, chunkExtractor } = render()
+    const { renderStream } = render()
     renderStream.pipe(
       stream,
       { end: false },
     )
     renderStream.on('end', () => {
-      stream.end(`</div>${chunkExtractor.getScriptTags()}</body></html>`)
+      stream.end('</div></body></html>')
     })
 
     reply.type('text/html').send(stream)

@@ -1,12 +1,9 @@
-import React, { Fragment, PureComponent } from 'react'
+import React, { Fragment, PureComponent, Suspense } from 'react'
 import styled from 'styled-components'
-import loadable from '@loadable/component'
 import GlobalStyle from './GlobalStyle'
-// import Button from './Button'
+import Button from './Button'
 
-const Button = loadable(() => import('./Button'), {
-  fallback: <div>Loading...</div>,
-})
+// const Button = React.lazy(() => import('./Button'))
 
 const Form = styled.form`
   display: flex;
@@ -97,6 +94,8 @@ export default class extends PureComponent {
               pattern="^.{4,}$"
             />
           </Row>
+          {/* <Suspense fallback="Loading...">
+          </Suspense> */}
           <Button type="submit">Test</Button>
         </Form>
       </Fragment>

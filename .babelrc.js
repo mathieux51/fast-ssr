@@ -16,7 +16,6 @@ module.exports = {
     '@babel/plugin-syntax-dynamic-import',
     'dynamic-import-node',
     'babel-plugin-styled-components',
-    '@loadable/babel-plugin',
   ],
   ignore: ['node_modules', 'dist'],
 }
