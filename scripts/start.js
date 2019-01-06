@@ -1,44 +1,24 @@
-// import React from 'react'
-// import path from 'path'
-import webpack from 'webpack' // eslint-disable-line
-import webpackDevMiddleware from 'webpack-dev-middleware' // eslint-disable-line
-import webpackHotMiddleware from 'webpack-hot-middleware' // eslint-disable-line
-import fastify from 'fastify'
+// // import React from 'react'
+// // import path from 'path'
+// import fastify from 'fastify'
 
-import cacheClean from './lib/cacheClean'
-import webpackConfig from '../config/webpack.config'
+// const server = fastify({
+//   logger: {
+//     level: 'info',
+//   },
+// })
 
-const server = fastify({
-  logger: {
-    level: 'info',
-  },
-})
+// server.register(async (...args) => {
+//   const { default: s } = require('../src/server/server')
+//   return s(...args)
+// })
 
-const compiler = webpack(webpackConfig)
-compiler.hooks.done.tap('client', cacheClean)
-
-server.use(
-  webpackDevMiddleware(compiler, {
-    publicPath: webpackConfig.output.publicPath,
-    // writeToDisk: filePath => /loadable-stats/.test(filePath),
-    // logLevel: 'silent',
-    // noInfo: true,
-    serverSideRender: true,
-  }),
-)
-server.use(webpackHotMiddleware(compiler))
-
-server.register(async (...args) => {
-  const { default: s } = require('../src/server') // eslint-disable-line global-require
-  return s(...args)
-})
-
-const start = async () => {
-  try {
-    await server.listen(4000)
-  } catch (err) {
-    server.log.error(err)
-    process.exit(1)
-  }
-}
-start()
+// const start = async () => {
+//   try {
+//     await server.listen(4000)
+//   } catch (err) {
+//     server.log.error(err)
+//     process.exit(1)
+//   }
+// }
+// start()

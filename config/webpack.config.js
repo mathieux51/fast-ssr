@@ -1,7 +1,6 @@
 const path = require('path')
-
 const webpack = require('webpack')
-const LoadablePlugin = require('@loadable/webpack-plugin')
+const { StatsWriterPlugin } = require('webpack-stats-plugin')
 
 const { NODE_ENV } = process.env
 const isProd = NODE_ENV === 'production'
@@ -12,6 +11,13 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   target: 'web',
   devtool: 'source-map',
+  devServer: isDev && {
+    port: 3000,
+    writeToDisk: true,
+    proxy: {
+      '*': 'http://localhost:4000',
+    },
+  },
   entry: [
     isDev
       ? 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false'
@@ -44,7 +50,9 @@ module.exports = {
   },
   plugins: [
     isDev ? new webpack.HotModuleReplacementPlugin() : null,
-    new LoadablePlugin(),
+    new StatsWriterPlugin({
+      filename: 'stats.json', // Default
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
       'process.env.IS_WEBPACK': JSON.stringify('true'),

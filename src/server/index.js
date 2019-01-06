@@ -1,48 +1,24 @@
-import path from 'path'
-import createCacheStream from './createCacheStream'
-// import redis from './redis'
-import { htmlStart, htmlEnd } from './html'
+// import React from 'react'
+// import path from 'path'
+import fastify from 'fastify'
 
-// Fix me
-// const { NODE_ENV } = process.env
-// const isProd = typeof NODE_ENV === 'undefined' || NODE_ENV === 'production'
-// const isDev = !isProd
+const server = fastify({
+  logger: {
+    level: 'info',
+  },
+})
 
-const server = (fastify, opts, next) => {
-  // fastify.register(require('fastify-static'), {
-  //   root: path.join(__dirname, '/..', '/..', '/public'),
-  //   prefix: '/public/',
-  // })
-  // fastify.get('/app.js', async (request, reply) => {
-  //   const fs = require('fs')
-  //   const stream = fs.createReadStream(`${process.cwd()}/app.js`, 'utf8')
-  //   reply.type('application/javascript; charset=utf-8')
-  //   reply.code(200).send(stream)
-  // })
+server.register(async (...args) => {
+  const { default: s } = require('./server')
+  return s(...args)
+})
 
-  fastify.get('*', async (request, reply) => {
-    //   // const cachedHtml = await redis.get(request.path)
-    //   // if (cachedHtml) {
-    //   //   reply.type('text/html').send(cachedHtml)
-    //   // } else {
-    console.log('Hi')
-    const json = reply.res.locals.webpackStats.toJson()
-    const css = json.assetsByChunkName.main.filter(p => p.endsWith('.css'))
-    const js = json.assetsByChunkName.main.filter(p => p.endsWith('.js'))
-    const stream = createCacheStream(request.req.url)
-    stream.write(htmlStart(css, json.publicPath))
-    const { default: render } = require('./render') // eslint-disable-line global-require
-    const { renderStream } = render(request)
-    renderStream.pipe(
-      stream,
-      { end: false },
-    )
-    renderStream.on('end', () => {
-      stream.end(htmlEnd(js, json.publicPath))
-    })
-    reply.type('text/html').send(stream)
-    // }
-    next()
-  })
+const start = async () => {
+  try {
+    await server.listen(4000)
+  } catch (err) {
+    server.log.error(err)
+    process.exit(1)
+  }
 }
-export default server
+start()
