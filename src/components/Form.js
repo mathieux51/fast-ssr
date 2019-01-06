@@ -1,16 +1,13 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Suspense } from 'react'
 import styled from 'styled-components'
-import Loadable from 'react-loadable'
 
-const Loading = () => <span>Loading</span>
-const getButton = path => (process.env.IS_WEBPACK
-  ? Loadable({
-    loader: () => import(path),
-    loading: Loading,
-  })
-  : require(path).default)
+const getComponent = path => (process.env.IS_WEBPACK ? (
+  <Suspense fallback="Loading...">{React.lazy(() => import(path))}</Suspense>
+) : (
+  require(path).default
+))
 
-const Button = getButton('./Button')
+const Button = getComponent('./Button')
 
 const Form = styled.form`
   display: flex;

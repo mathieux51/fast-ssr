@@ -14,14 +14,17 @@ module.exports = {
   devServer: isDev && {
     port: 3000,
     writeToDisk: true,
-    proxy: {
-      '*': 'http://localhost:4000',
-    },
+    proxy: [
+      {
+        context: ['**'],
+        target: 'http://localhost:4000',
+      },
+    ],
   },
   entry: [
-    isDev
-      ? 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false'
-      : null,
+    // isDev
+    //   ? 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false'
+    //   : null,
     isDev ? 'react-hot-loader/patch' : null,
     './src/client',
   ].filter(Boolean),

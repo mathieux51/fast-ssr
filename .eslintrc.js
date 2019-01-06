@@ -20,6 +20,7 @@ module.exports = {
     semi: ['error', 'never'],
     'no-console': 0,
     'global-require': 0,
+    'import/no-dynamic-require': 0,
     'import/prefer-default-export': 0,
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
   },
